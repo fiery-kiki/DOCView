@@ -1,6 +1,18 @@
 from django.shortcuts import render
 
 from django.http import HttpResponse
+
+from .forms import CreateUserForm
+
+def registerPage(request):
+    form = CreateUserForm()
+    if request.method == 'POST':
+        form = CreateUserForm(request.POST)
+        if form.is_valid():
+            form.save()
+    context = {'form':form}
+    return render(request, 'accounts/register.html', context)
+
 def get_receptionist():
     data = ['Total Appointments', 'Appointments Done', 'Upcoming Appointments']
     value = [1, 2, 3]
@@ -21,6 +33,13 @@ def home(request):
     return render(request, 'accounts/dashboard.html', data)
 
 
+
+
+def aboutus(request):
+    return render(request, 'aboutus.html')
+
+def contact(request):
+    return render(request, 'contact.html')
 
 def customer(request):
     return render(request, 'accounts/customer.html')
