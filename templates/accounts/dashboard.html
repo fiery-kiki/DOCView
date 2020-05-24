@@ -1,0 +1,23 @@
+{% extends 'main.html' %} {% block content %}
+
+<div class="jumbotron">
+    {% if status_data %}
+    <div>
+        {% include 'accounts/status.html' with data=status_data %}
+    </div>
+    {% endif %}
+    <div>
+        {% if user_type.hr%}
+        <div>
+            {% include 'accounts/dashboard_hr.html'%}
+        </div>
+        {% elif user_type.receptionist%}
+        <div>{% include 'accounts/dashboard_rcpt.html'%} </div>
+        {% elif user_type.doctor%}
+        <div>Doctor</div>
+        {% else %}
+        <div>Patient</div>
+        {% endif %}</div>
+</div>
+
+{% endblock %}
