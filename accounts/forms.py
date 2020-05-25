@@ -3,15 +3,31 @@ from django.contrib.auth.forms import UserCreationForm
 from django.contrib.auth.models import User
 from django import forms
 
-# from .models import Order
+from .models import Patient, Doctor, Appointment
 
+class CreatePatient(ModelForm):
+    class Meta:
+        model = Patient
+        fields = ['name', 'phone_no', 'gender', 'age', 'address', 'blood_group']
 
-# class OrderForm(ModelForm):
-# 	class Meta:
-# 		model = Order
-# 		fields = '__all__'
+class CreateAppointment(ModelForm):
+    class Meta:
+        model = Appointment
+        fields = '__all__'
 
+class CreateDoctor(ModelForm):
+    class Meta:
+        model = Doctor
+        fields = ['name', 'phone_no', 'gender', 'age', 'address', 'status', 'department', 'attendance', 'salary']
+
+object_choice = (
+        ('doctor', 'Doctor'),
+        ('patient', 'Patient')
+    )
 class CreateUserForm(UserCreationForm):
-	class Meta:
-		model = User
-		fields = ['username', 'first_name', 'last_name', 'email', 'password1', 'password2']
+    
+    options = forms.ChoiceField(choices = list(object_choice))
+    class Meta:
+        model = User
+        fields = ['username', 'email', 'password1', 'password2']
+

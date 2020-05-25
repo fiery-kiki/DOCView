@@ -4,16 +4,28 @@
         <h5>Appointments:</h5>
         <hr>
         <div class="card card-body">
-            <a class="btn btn-primary  btn-sm btn-block" href="">Create Appointments</a>
+            <a class="btn btn-primary  btn-sm btn-block" href="{% url 'create_appointment' %}">Create Appointments</a>
             <table class="table table-sm">
-                <tr>
-                    <th>Date</th>
-                    <th>Time</th>
-                    <th>Doctor</th>
-                    <th>Patient</th>
-                    <th>Status</th>
-                </tr>
-
+                <thead>
+                    <tr>
+                        <th>Date</th>
+                        <th>Time</th>
+                        <th>Doctor</th>
+                        <th>Patient</th>
+                        <th>Status</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for apt in appointment %}
+                    <tr>
+                        <td>{{apt.date}}</td>
+                        <td>{{apt.time}}</td>
+                        <td>{{apt.doctor}}</td>
+                        <td>{{apt.patient}}</td>
+                        <td>{{apt.status}}</td>
+                    </tr>
+                    {% endfor %}
+                </tbody>
             </table>
         </div>
     </div>
@@ -22,18 +34,36 @@
         <h5>LAST 5 Patients</h5>
         <hr>
         <div class="card card-body ">
-            <a class="btn btn-primary  btn-sm btn-block" href="">Create Patient</a>
+            <a class="btn btn-primary  btn-sm btn-block" href="{% url 'register' %}">Create Patient</a>
             <table class="table table-sm">
-                <tr>
-                    <th>Name</th>
-                    <th>Phone</th>
-                    <th>Email</th>
-                    <th>Gender</th>
-                    <th>Age</th>
-                    <th>Update</th>
-                    <th>Remove</th>
-                </tr>
-
+                <thead>
+                    <tr>
+                        <th>Name</th>
+                        <th>Phone</th>
+                        <th>Email</th>
+                        <th>Gender</th>
+                        <th>Age</th>
+                        <th>Update</th>
+                        <th>Remove</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for p1 in patient %}
+                    <tr>
+                        <td>{{p1.name}}</td>
+                        <td>{{p1.phone_no}}</td>
+                        <td>{{p1.user.email}}</td>
+                        <td>{{p1.gender}}</td>
+                        <td>{{p1.age}}</td>
+                        <td>
+                            <a href="{% url 'update_patient' pk=p1.pk %}" class="btn btn-info">UPDATE</a>
+                        </td>
+                        <td>
+                            <a href="{% url 'delete_patient' pk=p1.pk %}" class="btn btn-danger">REMOVE</a>
+                        </td>
+                    </tr>
+                    {% endfor %}
+                </tbody>
             </table>
         </div>
     </div>

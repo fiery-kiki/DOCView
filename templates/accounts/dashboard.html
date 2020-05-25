@@ -12,12 +12,14 @@
             {% include 'accounts/dashboard_hr.html'%}
         </div>
         {% elif user_type.receptionist%}
-        <div>{% include 'accounts/dashboard_rcpt.html'%} </div>
+        <div>{% include 'accounts/dashboard_rcpt.html' with appointment=appointment patient=patient%} </div>
         {% elif user_type.doctor%}
         <div>Doctor</div>
-        {% else %}
+        {% elif user_type.patient %}
         <div>Patient</div>
-        {% endif %}</div>
+        {% else %}
+        <a href="{% url 'register_doctor' %}" class="btn btn-info">Registor Doctor</a>
+        <a href="{% url 'register_patient' %}" class="btn btn-info">Registor Patient</a> {% endif %}</div>
 </div>
 
 {% endblock %}

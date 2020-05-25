@@ -17,9 +17,32 @@ blood_choice = (
     ('o_negative', 'O- Type'),
 )
 # Create your models here.
+
+class Receptionist(models.Model):
+    user = models.OneToOneField(User, verbose_name="receptionist", on_delete=models.CASCADE)
+    
+    class Meta:
+        verbose_name ="Receptionist"
+        verbose_name_plural = "Receptionists"
+
+    def __str__(self):
+        return self.name
+
+class HR(models.Model):
+    user = models.OneToOneField(User, verbose_name="hr", on_delete=models.CASCADE)
+    
+    class Meta:
+        verbose_name ="HR"
+        verbose_name_plural = "HRs"
+
+    def __str__(self):
+        return self.name
+
+
 class Patient(models.Model):
     
     user = models.OneToOneField(User, verbose_name="patient", on_delete=models.CASCADE)
+    name = models.CharField( max_length=50, null = True, blank = True)
     phone_no = models.CharField( max_length=10, null = True, blank = True)
     gender = models.CharField( max_length=10, null = True, blank = True, choices = gender_choice)
     age = models.IntegerField(null = True, blank = True)
@@ -32,12 +55,18 @@ class Patient(models.Model):
     def __str__(self):
         return self.user.username
 
+    def save(self, *args, **kwargs):
+        if not self.name:
+            self.name = self.user.username
+        return super(Patient, self).save(*args, **kwargs)
+
 class Doctor(models.Model):
     status_choice = (
         ('active', 'Active'),
         ('inactive', 'Inactive')
     )
     user = models.OneToOneField(User, verbose_name="doctor", on_delete=models.CASCADE)
+    name = models.CharField( max_length=50, null = True, blank = True)
     phone_no = models.CharField( max_length=10, null = True, blank = True)
     gender = models.CharField( max_length=10, null = True, blank = True, choices = gender_choice)
     age = models.IntegerField(null = True, blank = True)
@@ -52,6 +81,11 @@ class Doctor(models.Model):
 
     def __str__(self):
         return self.user.username
+    
+    def save(self, *args, **kwargs):
+        if not self.name:
+            self.name = self.user.username
+        return super(Doctor, self).save(*args, **kwargs)
 
 
 class Appointment(models.Model):
@@ -63,7 +97,7 @@ class Appointment(models.Model):
     doctor = models.ForeignKey(Doctor, verbose_name="doctor", on_delete=models.CASCADE)
     date = models.DateField( auto_now=False, auto_now_add=False)
     time = models.TimeField( auto_now=False, auto_now_add=False)
-    status = models.CharField( max_length=50, choices = status_choices)
+    status = models.CharField( max_length=50, choices = status_choices, null=False)
     class Meta:
         verbose_name = "Appointment"
         verbose_name_plural = "Appointments"
