@@ -8,18 +8,26 @@
     {% endif %}
     <div>
         {% if user_type.hr%}
+        <h3>Welcome HR</h3>
+
         <div>
-            {% include 'accounts/dashboard_hr.html'%}
+            {% include 'accounts/dashboard_hr.html' with doctors=doctor patients=patient%}
         </div>
         {% elif user_type.receptionist%}
+        <h3>Welcome Staff</h3>
         <div>{% include 'accounts/dashboard_rcpt.html' with appointment=appointment patient=patient%} </div>
         {% elif user_type.doctor%}
+        <h3>Welcome Doctor</h3>
+
         <div>Doctor</div>
+
         {% elif user_type.patient %}
+        <h3>Welcome Patient</h3>
+
         <div>Patient</div>
         {% else %}
-        <a href="{% url 'register_doctor' %}" class="btn btn-info">Registor Doctor</a>
-        <a href="{% url 'register_patient' %}" class="btn btn-info">Registor Patient</a> {% endif %}</div>
+        <h3>Welcome Admin</h3>
+        <a href="admin/" class="btn btn-info">GO to admin pannel</a> {% endif %}</div>
 </div>
 
 {% endblock %}

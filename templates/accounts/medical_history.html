@@ -1,0 +1,24 @@
+{% extends 'main.html' %} {% block content %}
+<div>
+    <div class="row">
+        {% if request.user.doctor %}
+        <a class="btn btn-outline-primary" href="{% url 'create_prescription' dpk=request.user.doctor.pk %}">Create Prescription</a> {% endif %}
+    </div>
+    {% for prc in prescriptions %}
+    <div class='row'>
+        <div class="card mx-auto col-7">
+            <div class="card-body">
+                <h5 class="card-title">{{prc.date}}</h5>
+                <p class="card-text"><b>Symptoms:</b> {{ prc.disease }}</p>
+                <br>
+                <p class="card-text"><b>Prescription:</b> {{ prc.prescription }}</p>
+                {% if request.user.doctor %}
+                <p class="card-text"><b>Patient:</b> {{ prc.patient }}</p>
+                {% endif %}
+                <a href="#" class="btn btn-primary">Learn More</a>
+            </div>
+        </div>
+    </div>
+    {% endfor %}
+</div>
+{% endblock %}

@@ -1,5 +1,6 @@
 {% extends 'main.html' %} {% block content %}
 <div>
-    {% include 'generic/tabel_simple.html' with data=data%}
+    <h1>{{ message }}</h1>
+    <h3>{{ error_code }}</h3>
 </div>
 {% endblock %}

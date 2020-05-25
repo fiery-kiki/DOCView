@@ -14,18 +14,50 @@
     </button>
     <div class="collapse navbar-collapse " id="navbarNav ">
         <ul class="navbar-nav ">
-            <li class="nav-item active ">
+            <li class="nav-item">
                 <a class="nav-link " href="{% url 'home'%}">Dashboard</a>
             </li>
-            <li class="nav-item ">
-                <a class="nav-link " href="{% url 'home'%}">Product</a>
+            {% if request.user.patient %}
+            <li class="nav-item">
+                <a class="nav-link " href="{% url 'your_appointments'%}">Your Appointments</a>
             </li>
+            <li class="nav-item">
+                <a class="nav-link " href="{% url 'invoice_and_payment'%}">Invoice & Payment</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link " href="{% url 'profile' %}">Profile</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link " href="{% url 'medical_history' %}">Medical History</a>
+            </li>
+
+            {% elif request.user.doctor %}
+            <li class="nav-item">
+                <a class="nav-link " href="{% url 'medical_history' %}">Prescriptions</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link " href="{% url 'doc_appointments'%}">Appointments</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link " href="{% url 'profile' %}">Profile</a>
+            </li>
+            {% endif %}
             <li class="nav-item ">
                 <a class="nav-link " href="{% url 'aboutus'%}">AboutUs</a>
             </li>
             <li class="nav-item ">
                 <a class="nav-link " href="{% url 'contact'%}">Contact</a>
             </li>
+            {% if request.user.is_authenticated %}
+            <li></li>
+            {% else %}
+            <li class="nav-item "></li>
+            <a class="nav-link " href="{% url 'register'%}">Register</a>
+            </li>
+            <li class="nav-item "></li>
+            <a class="nav-link " href="{% url 'login'%}">Login</a>
+            </li>
+            {% endif %}
         </ul>
     </div>
     {% if request.user.is_authenticated %}

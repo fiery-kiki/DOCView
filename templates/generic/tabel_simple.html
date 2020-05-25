@@ -11,7 +11,7 @@
         <tr>
             {% for col in row %}
             <td>{% if col.type == 'text'%} {{ col.value }} {% elif col.type == 'link' %}
-                <a href="{{ col.value }}">LINK</a> {% endif %} </td>{% endfor %}
+                <a href="{% url data.obj_url pk=col.value.pk %}">LINK</a> {% endif %} </td>{% endfor %}
         </tr>
         {% endfor %}
     </tbody>

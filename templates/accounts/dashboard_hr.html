@@ -4,21 +4,44 @@
         <h5>Doctors:</h5>
         <hr>
         <div class="card card-body">
-            <a class="btn btn-primary  btn-sm btn-block" href="">Doctors</a>
+            <a class="btn btn-primary  btn-sm btn-block" href="{% url 'register' %}">Doctors</a>
             <table class="table table-sm">
-                <tr>
-                    <th>Name</th>
-                    <th>Phone</th>
-                    <th>Email</th>
-                    <th>Gender</th>
-                    <th>Age</th>
-                    <th>Status</th>
-                    <th>Department</th>
-                    <th>Attendence</th>
-                    <th>Salary</th>
-                    <th>Update</th>
-                    <th>Remove</th>
-                </tr>
+                <thead>
+                    <tr>
+                        <th>Name</th>
+                        <th>Phone</th>
+                        <th>Email</th>
+                        <th>Gender</th>
+                        <th>Age</th>
+                        <th>Status</th>
+                        <th>Department</th>
+                        <th>Attendence</th>
+                        <th>Salary</th>
+                        <th>Update</th>
+                        <th>Remove</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for doc in doctors %}
+                    <tr>
+                        <td>{{doc.name}}</td>
+                        <td>{{doc.phone}}</td>
+                        <td>{{doc.user.email}}</td>
+                        <td>{{doc.gender}}</td>
+                        <td>{{doc.age}}</td>
+                        <td>{{doc.status}}</td>
+                        <td>{{doc.department}}</td>
+                        <td>{{doc.Attendence}}</td>
+                        <td>{{doc.Salary}}</td>
+                        <td>
+                            <a href="{% url 'update_doctor' pk=doc.pk %}" class="btn btn-info">UPDATE</a>
+                        </td>
+                        <td>
+                            <a href="{% url 'delete_doctor' pk=doc.pk %}" class="btn btn-danger">REMOVE</a>
+                        </td>
+                    </tr>
+                    {% endfor %}
+                </tbody>
 
             </table>
         </div>

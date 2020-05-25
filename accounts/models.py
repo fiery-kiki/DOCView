@@ -26,7 +26,7 @@ class Receptionist(models.Model):
         verbose_name_plural = "Receptionists"
 
     def __str__(self):
-        return self.name
+        return self.user.username
 
 class HR(models.Model):
     user = models.OneToOneField(User, verbose_name="hr", on_delete=models.CASCADE)
@@ -36,7 +36,7 @@ class HR(models.Model):
         verbose_name_plural = "HRs"
 
     def __str__(self):
-        return self.name
+        return self.user.username
 
 
 class Patient(models.Model):
@@ -125,9 +125,13 @@ class Invoice(models.Model):
     unit_cost = models.IntegerField()
     date = models.DateField( auto_now_add=True)
     hours = models.IntegerField()
+    paid = models.IntegerField( null=True, blank=True)
     class Meta:
         verbose_name = "Invoice"
         verbose_name_plural = "Invoices"
+
+    def get_outstanding(self):
+        return self.hours*self.unit_cost - self.paid
 
     def __str__(self):
         return self.name
