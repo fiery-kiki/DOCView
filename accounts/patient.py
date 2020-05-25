@@ -16,7 +16,7 @@ def your_appointments(request):
     data['title'] = ['Date', 'Time', 'Consulting Doctor', 'Status']
     data['value'] = [ ]
     u1 = request.user
-    p1 = p1.patient
+    p1 = u1.patient
     if hasattr(p1, 'appointment_set'):
         for apt in p1.appointment_set.all():
             data['value'].append([ apt.date, apt.time, apt.doctor, apt.status])
@@ -31,22 +31,21 @@ def invoice_and_payment(request):
     data['title'] = ['Invoice', 'Paid', 'Date', 'Outstanding']
     data['value'] = [ ]
     u1 = request.user
-    if hasattr(u1, 'patient'):
-        p1 = u1.patient
-        if hasattr(p1, 'invoice_set'):
-            for inv in p1.invoice_set.all():
-                data['value'].append([
-                    inv,
-                    inv.paid,
-                    inv.date,
-                    inv.get_outstanding()
-                    ])
+    p1 = u1.patient
+    if hasattr(p1, 'invoice_set'):
+        for inv in p1.invoice_set.all():
+            data['value'].append([
+                inv,
+                inv.paid,
+                inv.date,
+                inv.get_outstanding()
+                ])
     data['obj_url'] = "detail_invoice"
     type = ['link', 'text', 'text', 'text']
     data['value'] = [ value_convertor(row, type) for row in data['value']]
     return render(request, 'accounts/your_appointments.html', {'data':data})
 
-@patientonly
+
 @login_required(login_url='login')
 def invoice_detailed(request, pk):
     i1 = Invoice.objects.get(pk = pk)

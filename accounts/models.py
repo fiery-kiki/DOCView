@@ -132,6 +132,9 @@ class Invoice(models.Model):
 
     def get_outstanding(self):
         return self.hours*self.unit_cost - self.paid
+    
+    def get_total(self):
+        return self.hours*self.unit_cost
 
     def __str__(self):
         return self.name

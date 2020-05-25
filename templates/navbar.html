@@ -41,6 +41,10 @@
             <li class="nav-item">
                 <a class="nav-link " href="{% url 'profile' %}">Profile</a>
             </li>
+            {% elif request.user.hr %}
+            <li class="nav-item">
+                <a class="nav-link " href="{% url 'accounting' %}">Accounting</a>
+            </li>
             {% endif %}
             <li class="nav-item ">
                 <a class="nav-link " href="{% url 'aboutus'%}">AboutUs</a>

@@ -1,0 +1,38 @@
+{% extends 'main.html' %} {% block content %}
+<div class="row">
+    <div class="col-md-7 ">
+        <h5>LAST 5 Patients</h5>
+        <hr>
+        <div class="card card-body ">
+            <button class="btn btn-primary  btn-sm btn-block" href="#" disabled>Outstanding</button>
+            <table class="table table-sm">
+                <thead>
+                    <tr>
+                        <th>Date</th>
+                        <th>Patient Name</th>
+                        <th>Paid</th>
+                        <th>Outstanding</th>
+                        <th>Total</th>
+                        <th>Invoice</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        {% for inv in invoice %}
+                        <td>{{inv.date}}</td>
+                        <td>{{inv.patient}}</td>
+                        <td>{{inv.paid}}</td>
+                        <td>{{inv.get_outstanding}}</td>
+                        <td>{{inv.get_total}}</td>
+                        <td>
+                            <a href="{% url 'detail_invoice' pk=inv.pk %}">Open Invoice</a>
+                        </td>
+                        {% endfor %}
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+
+</div>
+{% endblock %}

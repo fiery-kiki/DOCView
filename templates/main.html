@@ -19,6 +19,11 @@
         {% block content %} {% endblock %}
     </div>
     <h5>Our Footer</h5>
+    <div>
+        {% for message in messages %}
+        <p id="messages">{{message}}</p>
+        {% endfor %}
+    </div>
 
 </body>
 <!-- JS, Popper.js, and jQuery -->

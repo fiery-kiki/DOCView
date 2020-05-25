@@ -9,7 +9,7 @@ from django.contrib.auth import authenticate, login, logout
 
 from django.contrib import messages
 from django.contrib.auth.decorators import login_required
-from .decorators import unauthenticated_user
+from .decorators import unauthenticated_user, isAdmin, hronly
 
 
 # @unauthenticated_user
@@ -62,7 +62,7 @@ def deletePatient(request, pk):
     return render(request, 'accounts/delete.html', context)
 
 
-
+@isAdmin
 @login_required(login_url='login')
 def deleteDoctor(request, pk):
     doctor = Doctor.objects.get(pk=pk)
@@ -197,6 +197,13 @@ def home(request):
     data.update(val)
     return render(request, 'accounts/dashboard.html', data)
 
+
+@hronly
+@login_required
+def accounting(request):
+    invoice = Invoice.objects.all()
+    data = {'invoice':invoice}
+    return render(request, 'accounts/accounting.html', data)
 
 
 

@@ -25,14 +25,14 @@
                     {% for doc in doctors %}
                     <tr>
                         <td>{{doc.name}}</td>
-                        <td>{{doc.phone}}</td>
+                        <td>{{doc.phone_no}}</td>
                         <td>{{doc.user.email}}</td>
                         <td>{{doc.gender}}</td>
                         <td>{{doc.age}}</td>
                         <td>{{doc.status}}</td>
                         <td>{{doc.department}}</td>
-                        <td>{{doc.Attendence}}</td>
-                        <td>{{doc.Salary}}</td>
+                        <td>{{doc.attendance}}</td>
+                        <td>{{doc.salary}}</td>
                         <td>
                             <a href="{% url 'update_doctor' pk=doc.pk %}" class="btn btn-info">UPDATE</a>
                         </td>
